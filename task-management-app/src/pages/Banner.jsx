@@ -17,8 +17,8 @@ const Banner = () => {
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-xl">
-          <h1 className="mb-5 text-5xl font-bold">
-            {user ? `Hello ${user.displayName}` : `Hello there`}
+          <h1 className="mb-5 text-4xl font-bold">
+            {user ? `Hello Mr. ${user.displayName}` : `Hello there`}
           </h1>
           <p className="my-10">
             Welcome you to this task management application. Here you can manage your upcoming & to do tasks very easily.
@@ -33,7 +33,7 @@ const Banner = () => {
                 <div className="flex justify-center items-center gap-2">
                   <p>
                     Welcome once again!{" "}
-                    <span className="text-2xl font-bold">
+                    <span className="text-2xl font-bold text-gradient">
                       {user.displayName}
                     </span>
                   </p>

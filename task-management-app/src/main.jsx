@@ -8,6 +8,7 @@ import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 
 // tanstack
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import UpdateTask from "./pages/UpdateTask.jsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/update-task-data/:id",
+    element: <UpdateTask />,
   },
 ]);
 

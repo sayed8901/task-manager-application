@@ -36,3 +36,38 @@ const useTasks = () => {
   return [allTasks, refetch];
 };
 export default useTasks;
+
+
+
+// to get a single taskData by its ID
+export const useGetSingleTask = (id) => {
+
+  const { data: singleTask = [], refetch } = useQuery({
+    queryKey: ["singleTask"],
+    queryFn: async () => {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/tasks/${id}`);
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return res.json();
+    },
+  });
+  return [singleTask, refetch];
+};
+
+
+
+// update info of a single task by ID
+export const updateTaskInfo = (taskData) => {
+  fetch(`${import.meta.env.VITE_API_URL}/updateTask/${taskData?.updateProcessID}`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(taskData),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+};

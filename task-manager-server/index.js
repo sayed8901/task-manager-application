@@ -54,6 +54,7 @@ async function run() {
       const result = await tasksCollection.find(query).toArray();
       res.send(result);
     })
+    
 
 
     // to delete a single task
@@ -63,6 +64,35 @@ async function run() {
       const result = await tasksCollection.deleteOne(query);
       res.send(result);
     })
+
+
+
+    // get a single task data by its ID 
+    app.get('/tasks/:id', async (req, res) => {
+      const id = req.params.id;
+      // console.log(id);
+
+      const query = {_id: new ObjectId(id)};
+      const result = await tasksCollection.findOne(query);
+      res.send(result);
+    })
+
+
+
+    // update info of a single task by ID
+    app.put('/updateTask/:id', async (req, res) => {
+      const updateTaskId = req.params.id;
+      const taskData = req.body;
+      const query = {_id: new ObjectId(updateTaskId)};
+      const options = {upsert: true};
+      const updateDoc = {
+          $set: taskData
+      }
+      const result = await tasksCollection.updateOne(query, updateDoc, options);
+      console.log(result);
+      res.send(result);
+    })
+
 
 
 

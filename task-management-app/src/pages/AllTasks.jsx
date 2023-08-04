@@ -1,7 +1,8 @@
 import { Fade } from "react-awesome-reveal";
 import useTasks from "../CRUD API/API";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const AllTasks = () => {
   const [allTasks, refetch] = useTasks();
@@ -49,15 +50,14 @@ const AllTasks = () => {
           All Tasks List
         </Fade>
 
-        <table className="table table-zebra">
+        <table className="table table-zebra mx-auto">
           {/* table heading */}
           <thead>
             <tr className="text-center font-bold text-base bg-base-200">
-              <th>Sl#</th>
               <th>Title</th>
               <th>Description</th>
               <th>Status</th>
-              <th>Priority</th>
+              {/* <th>Priority</th> */}
               <th>Action</th>
             </tr>
           </thead>
@@ -66,21 +66,28 @@ const AllTasks = () => {
             {/* table rows */}
             {allTasks.map((task, index) => (
               <tr className="hover" key={task._id}>
-                <td className="text-center">{index + 1}</td>
-                <td className="text-center">{task.title}</td>
+                <td className="text-center">
+                  {index + 1}. {task.title}
+                </td>
                 <td className="text-center">{task.description}</td>
                 <td className="text-center">{task.status}</td>
-                <td className="text-center">{task.priority}</td>
+                {/* <td className="text-center">{task.priority}</td> */}
 
-                <td className="mx-auto flex items-center text-center gap-4 sm:gap-8">
-                  <span className="text-blue-500 text-xl hover:scale-150 duration-300">
-                    <FaRegEdit />
+                <td className="mx-auto flex items-center text-center gap-4">
+                  <span className="text-blue-500 text-sm sm:text-xl hover:scale-125 duration-300">
+                    <Link
+                      to={`update-task-data/${task._id}`}
+                      className="btn btn-sm btn-primary btn-outline"
+                    >
+                      <FaRegEdit />
+                    </Link>
                   </span>
+
                   <span
                     onClick={() => {
                       handleDelete(task._id);
                     }}
-                    className="text-orange-500 text-xl hover:scale-150 duration-300"
+                    className="text-orange-500 text-sm sm:text-xl hover:scale-150 duration-300"
                   >
                     <FaTrash />
                   </span>
