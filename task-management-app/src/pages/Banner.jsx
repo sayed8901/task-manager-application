@@ -23,16 +23,16 @@ const Banner = () => {
           <p className="my-10">
             Welcome you to this task management application. Here you can manage your upcoming & to do tasks very easily.
           </p>
-          <p className="mb-5">
+          <div className="mb-5">
             {!user &&
               <p className="mt-20">You can add a new task or view your all enlisted tasks by logging in.</p>}
-          </p>
+          </div>
           <div className="mb-10">
             {user ? (
               <div className="flex justify-between items-center gap-4">
                 <div className="flex justify-center items-center gap-2">
                   <p>
-                    Welcome back!{" "}
+                    Welcome once again!{" "}
                     <span className="text-2xl font-bold">
                       {user.displayName}
                     </span>

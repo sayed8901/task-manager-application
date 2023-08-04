@@ -13,7 +13,7 @@ app.use(express.json());
 
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ebwgrc3.mongodb.net/?retryWrites=true&w=majority`;
 
 
@@ -37,10 +37,31 @@ async function run() {
     const tasksCollection = client.db('taskManager').collection('tasks')
 
 
+    // save a new task data
+    app.post('/add-task', async (req, res) => {
+      const newTaskData = req.body;
+      // console.log(newTaskData);
+      const result = await tasksCollection.insertOne(newTaskData);
+      res.send(result);
+    })
+
+
+
     // get all tasks
     app.get('/tasks', async (req, res) => {
-        const result = await tasksCollection.find().toArray();
-        res.send(result);
+      // console.log(req.query.email);
+      const query = {userEmail: req.query.email}
+      const result = await tasksCollection.find(query).toArray();
+      res.send(result);
+    })
+
+
+    // to delete a single task
+    app.delete('/tasks/:id', async(req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await tasksCollection.deleteOne(query);
+      res.send(result);
     })
 
 
@@ -62,9 +83,9 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Hello server')
+  res.send('Hello server')
 })
 
 app.listen(port, () => {
-    console.log(`task manager is running at ${port} port`);
+  console.log(`task manager is running at ${port} port`);
 })
