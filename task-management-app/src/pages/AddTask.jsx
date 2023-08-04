@@ -4,6 +4,7 @@ import { Fade, Slide } from "react-awesome-reveal";
 import Swal from "sweetalert2";
 import { addTask } from "../CRUD API/API";
 import useTasks from "../CRUD API/API";
+import { useForm } from "react-hook-form";
 
 const AddTask = () => {
   const { user } = useContext(AuthContext);
@@ -11,25 +12,29 @@ const AddTask = () => {
 
   const [, refetch] = useTasks();
 
-  const handleAdd = (event) => {
-    event.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-    const form = event.target;
-    const title = form.title.value;
-    const description = form.description.value;
-    const status = form.status.value;
-    const priority = form.priority.value;
+  const onSubmit = (data) => {
+    // console.log(data);
+
     const userName = user.displayName;
     const userEmail = user.email;
 
     const newTaskData = {
-      title, description, status, priority, userName, userEmail
-    }
-    console.log(newTaskData);
+      ...data,
+      userName,
+      userEmail,
+    };
+
+    // console.log(newTaskData);
 
     // to save task data to the database
     addTask(newTaskData);
-
 
     Swal.fire({
       position: "center",
@@ -39,20 +44,21 @@ const AddTask = () => {
       timer: 1500,
     });
 
-    form.reset();
+    reset();
 
     refetch();
-  }
+  };
 
   return (
     <div className="hero min-h-screen container mx-auto my-12" name="addTask">
       <form
-        onSubmit={handleAdd}
+        onSubmit={handleSubmit(onSubmit)}
         className="card-body w-full sm:max-w-[90%] mx-auto"
       >
         <Fade className="text-3xl font-bold text-center text-gradient mb-2 sm:mb-4">
           Add a New Task
         </Fade>
+
         <Slide cascade>
           <div className="form-control">
             <label className="label">
@@ -63,8 +69,11 @@ const AddTask = () => {
               name="title"
               placeholder="Title of the task"
               className="input input-bordered"
-              required
+              {...register("title", { required: true })}
             />
+            {errors.title && (
+              <span className="text-red-500">Title is required</span>
+            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-8">
@@ -72,34 +81,36 @@ const AddTask = () => {
               <label className="label">
                 <span className="label-text">Status</span>
               </label>
-              <div className="input-group">
-                <select
-                  className="select select-bordered w-full"
-                  name="status"
-                  required
-                >
-                  <option>TO DO</option>
-                  <option>Ongoing</option>
-                  <option>Completed</option>
-                </select>
-              </div>
+              <select
+                name="status"
+                className="select select-bordered w-full"
+                {...register("status", { required: true })}
+              >
+                <option>TO DO</option>
+                <option>Ongoing</option>
+                <option>Completed</option>
+              </select>
+              {errors.status && (
+                <span className="text-red-500">Status is required</span>
+              )}
             </div>
 
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Priority</span>
               </label>
-              <div className="input-group">
-                <select
-                  className="select select-bordered w-full"
-                  name="priority"
-                  required
-                >
-                  <option>High</option>
-                  <option>Medium</option>
-                  <option>Low</option>
-                </select>
-              </div>
+              <select
+                name="priority"
+                className="select select-bordered w-full"
+                {...register("priority", { required: true })}
+              >
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+              </select>
+              {errors.priority && (
+                <span className="text-red-500">Priority is required</span>
+              )}
             </div>
           </div>
 
@@ -112,43 +123,17 @@ const AddTask = () => {
               name="description"
               placeholder="Description of the tasks"
               className="textarea textarea-bordered textarea-lg"
-              required
+              {...register("description", { required: true })}
             ></textarea>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-8">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Name</span>
-              </label>
-              <input
-                type="text"
-                readOnly
-                defaultValue={user.displayName}
-                name="userName"
-                className="input input-bordered"
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                readOnly
-                defaultValue={user.email}
-                name="instructorEmail"
-                className="input input-bordered"
-              />
-            </div>
+            {errors.description && (
+              <span className="text-red-500">Description is required</span>
+            )}
           </div>
         </Slide>
 
-        <input
-          className="btn btn-primary w-36 mx-auto mt-6 bg-gradient font-bold"
-          type="submit"
-          value="Add"
-        />
+        <div className="form-control mt-8 w-1/2 mx-auto">
+          <input className="btn btn-primary bg-gradient" type="submit" value="Add Task" />
+        </div>
       </form>
     </div>
   );

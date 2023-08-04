@@ -37,6 +37,7 @@ async function run() {
     const tasksCollection = client.db('taskManager').collection('tasks')
 
 
+
     // save a new task data
     app.post('/add-task', async (req, res) => {
       const newTaskData = req.body;
@@ -71,7 +72,6 @@ async function run() {
     app.get('/tasks/:id', async (req, res) => {
       const id = req.params.id;
       // console.log(id);
-
       const query = {_id: new ObjectId(id)};
       const result = await tasksCollection.findOne(query);
       res.send(result);
@@ -79,7 +79,7 @@ async function run() {
 
 
 
-    // update info of a single task by ID
+    // update the info of a single task by ID
     app.put('/updateTask/:id', async (req, res) => {
       const updateTaskId = req.params.id;
       const taskData = req.body;
@@ -92,8 +92,6 @@ async function run() {
       console.log(result);
       res.send(result);
     })
-
-
 
 
 
@@ -115,6 +113,7 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
   res.send('Hello server')
 })
+
 
 app.listen(port, () => {
   console.log(`task manager is running at ${port} port`);

@@ -1,10 +1,9 @@
 import { Fade, Slide } from "react-awesome-reveal";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
-import useTasks, { updateTaskInfo, useGetSingleTask } from "../CRUD API/API";
+import { updateTaskInfo, useGetSingleTask } from "../CRUD API/API";
 
 const UpdateTask = () => {
-  const [, refetch] = useTasks();
   const { id } = useParams();
   const [singleTask] = useGetSingleTask(id);
   //   console.log(id, singleTask);
@@ -38,10 +37,6 @@ const UpdateTask = () => {
       showConfirmButton: false,
       timer: 1500,
     });
-
-    form.reset();
-
-    refetch();
 
     navigate("/");
   };
@@ -80,9 +75,9 @@ const UpdateTask = () => {
                   name="status"
                   required
                 >
-                  <option>TO DO</option>
-                  <option>Ongoing</option>
                   <option>Completed</option>
+                  <option>Ongoing</option>
+                  <option>TO DO</option>
                 </select>
               </div>
             </div>
@@ -125,6 +120,7 @@ const UpdateTask = () => {
           value="Update"
         />
       </form>
+
     </div>
   );
 };

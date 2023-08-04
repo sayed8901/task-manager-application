@@ -57,7 +57,6 @@ const AllTasks = () => {
               <th>Title</th>
               <th>Description</th>
               <th>Status</th>
-              {/* <th>Priority</th> */}
               <th>Action</th>
             </tr>
           </thead>
@@ -67,17 +66,32 @@ const AllTasks = () => {
             {allTasks.map((task, index) => (
               <tr className="hover" key={task._id}>
                 <td className="text-center">
-                  {index + 1}. {task.title}
+                  <div className="font-bold">
+                    {index + 1}. {task.title}
+                  </div>
+                  <div>
+                    <span className="text-[10px]">Priority:</span>{" "}
+                    <span className="badge badge-ghost badge-sm">
+                      {task.priority}
+                    </span>
+                  </div>
                 </td>
                 <td className="text-center">{task.description}</td>
-                <td className="text-center">{task.status}</td>
-                {/* <td className="text-center">{task.priority}</td> */}
+                <td
+                  className={`text-center ${
+                    task.status == "Completed" &&
+                    "text-red-400 text-sm md:text-xl font-semibold bg-gradient rounded-2xl"
+                  }`}
+                >
+                  {task.status}
+                </td>
 
-                <td className="mx-auto flex items-center text-center gap-4">
+                <td className="mx-auto flex justify-center items-center text-center gap-4">
                   <span className="text-blue-500 text-sm sm:text-xl hover:scale-125 duration-300">
                     <Link
                       to={`update-task-data/${task._id}`}
                       className="btn btn-sm btn-primary btn-outline"
+                      title="Edit/ Update Task"
                     >
                       <FaRegEdit />
                     </Link>
@@ -88,6 +102,7 @@ const AllTasks = () => {
                       handleDelete(task._id);
                     }}
                     className="text-orange-500 text-sm sm:text-xl hover:scale-150 duration-300"
+                    title="Delete Task"
                   >
                     <FaTrash />
                   </span>

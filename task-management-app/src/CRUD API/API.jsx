@@ -57,7 +57,7 @@ export const useGetSingleTask = (id) => {
 
 
 
-// update info of a single task by ID
+// update the info of a single task by ID
 export const updateTaskInfo = (taskData) => {
   fetch(`${import.meta.env.VITE_API_URL}/updateTask/${taskData?.updateProcessID}`, {
     method: "PUT",
