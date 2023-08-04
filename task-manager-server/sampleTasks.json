@@ -1,0 +1,49 @@
+{
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Complete Project Proposal",
+        "details": "Write and finalize the project proposal for the upcoming client presentation.",
+        "status": "In Progress",
+        "priority": "High",
+        "user": "Md. Sayed Hossain",
+        "email": "sayed91515@gmail.com"
+      },
+      {
+        "id": 2,
+        "title": "Grocery Shopping",
+        "details": "Buy groceries for the week, including vegetables, fruits, and pantry items.",
+        "status": "To Do",
+        "priority": "Medium",
+        "user": "Md. Sayed Hossain",
+        "email": "sayed91515@gmail.com"
+      },
+      {
+        "id": 3,
+        "title": "Prepare Presentation Slides",
+        "details": "Create presentation slides for the upcoming team meeting about the quarterly sales report.",
+        "status": "Completed",
+        "priority": "High",
+        "user": "Md. Sohel",
+        "email": "sdssayed24@gmail.com"
+      },
+      {
+        "id": 4,
+        "title": "Morning Jog",
+        "details": "Go for a 30-minute jog in the park to start the day.",
+        "status": "To Do",
+        "priority": "Low",
+        "user": "Md. Sayed Hossain",
+        "email": "sayed91515@gmail.com"
+      },
+      {
+        "id": 5,
+        "title": "Book Flight Tickets",
+        "details": "Research and book flight tickets for the upcoming business trip to New York.",
+        "status": "In Progress",
+        "priority": "Medium",
+        "user": "Md. Sayed Hossain",
+        "email": "sayed91515@gmail.com"
+      }
+    ]
+}
